@@ -1,0 +1,53 @@
+# Tomcat
+server:
+    tomcat:
+        uri-encoding: UTF-8
+        max-threads: 1000
+        min-spare-threads: 30
+    port: 8082
+    servlet:
+      context-path: /
+      session:
+        timeout: 7200
+    connection-timeout: 5000ms
+
+#datasource
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    druid:
+      url: jdbc:mysql://127.0.0.1:3306/imgurl?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=UTC
+      username: root
+      password: root
+      validation-query: select 1 from dual
+      #初始化连接大小
+      initial-size: 5
+      #连接池最大使用连接数量
+      max-active: 20
+      #连接池最小空闲
+      min-idle: 5
+      #获取连接最大等待时间
+      max-wait: 60000
+      test-on-borrow: false
+      test-on-return: false
+      test-while-idle: true
+      #配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+      time-between-eviction-runs-millis: 60000
+      #配置一个连接在池中最小生存的时间，单位是毫秒
+      min-evictable-idle-time-millis: 300000
+      #打开removeAbandoned功能
+      remove-abandoned: true
+      # 1800秒，也就是30分钟
+      remove-abandoned-timeout: 1800
+      #关闭abanded连接时输出错误日志
+      log-abandoned: true
+  jpa:
+    properties:
+      hibernate:
+        hbm2ddl:
+          #none:不处理;create:自动创建;create-drop:启动创建表，关闭删除表; update:更新;validate 
+          auto: update
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        format_sql: true
+    show-sql: true
